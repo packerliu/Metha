@@ -2,7 +2,7 @@ FROM ubuntu:20.04
 
 WORKDIR /root
 
-ENV TZ=Europe/Zurich
+ENV TZ Americas/New_York
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ENV DEBIAN_FRONTEND noninteractive
