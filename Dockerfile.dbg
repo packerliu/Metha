@@ -1,0 +1,9 @@
+FROM metha:latest
+
+WORKDIR /root/metha
+
+COPY requirements2.txt /root/metha/requirements2.txt
+
+RUN pip install -r requirements2.txt
+
+CMD ["python3", "-m debugpy --wait-for-client --listen 5678 app.py --name=Victor --age=30"]
