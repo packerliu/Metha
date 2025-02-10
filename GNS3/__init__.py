@@ -4,7 +4,7 @@ import json
 from settings import GNS_SERVER_HOST, GNS_SERVER_PORT
 
 
-def send_request(method, url, param=None, return_data=False):
+def send_request(method, url, param=None, return_data=True):
     """
     Sends an HTTP request to the GNS3 server
     :param method: HTTP method to use

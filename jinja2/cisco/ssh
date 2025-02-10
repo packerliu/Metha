@@ -1,0 +1,13 @@
+crypto key generate rsa
+
+ip ssh version 2 
+line vty 0 4
+    login local
+    transport input ssh
+end
+ip ssh authentication-retries 2
+ip ssh timeout 30
+
+aaa new-model
+username admin password 0 cisco
+ip domain-name lab.net

@@ -3,7 +3,7 @@
   "properties": {
     "platform": "c7200",
     "nvram": 512,
-    "image": "c7200-adventerprisek9-mz.124-24.T8.image",
+    "image": "c7200-adventerprisek9-mz.124-24.T5.image",
     "ram": 512,
     "auto_delete_disks": true,
     "slot0": "C7200-IO-2FE",

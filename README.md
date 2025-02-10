@@ -35,7 +35,7 @@ pip install -r requirements.txt
 * Systems to be tested needs to be properly installed
 * To test Batfish, additionally the Batfish server needs to be up and running. This can be done by running ```scripts/run_batfish.sh```.
 * The GNS3 Server needs to be properly installed and running
-  * The router image used should be installed to the GNS3 image directory. By default, Metha supports the Cisco ```c7200-adventerprisek9-mz.124-24.T8.image``` image and Juniper VMX which requires ```junos-vmx-x86-64-18.2R1.9.qcow2```, ```vmxhdd.img```, ```metadata-usb-re.img```, and ```vFPC-20180605.img``` to be installed in GNS3, i.e. to be placed in the ```images``` directory of GNS3.
+  * The router image used should be installed to the GNS3 image directory. By default, Metha supports the Cisco ```c7200-adventerprisek9-mz.124-24.T8.image``` image for [Cisco7200]](https://gns3.com/marketplace/appliances/cisco-7200) and [guides](https://www.cisco.com/c/en/us/td/docs/ios/12_4/12_4x/release/notes/rn7000XD.html), and Juniper VMX which requires ```junos-vmx-x86-64-18.2R1.9.qcow2```, ```vmxhdd.img```, ```metadata-usb-re.img```, and ```vFPC-20180605.img``` to be installed in GNS3, i.e. to be placed in the ```images``` directory of GNS3.
   * Password protection of the GNS3 server needs to be disabled
 
 ## Running full Metha

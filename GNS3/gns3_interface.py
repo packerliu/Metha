@@ -44,22 +44,40 @@ class GNS3Project:
         Creates a new GNS3 project and initializes it
         :param name: Name of the project
         """
-        conn = http.client.HTTPConnection(GNS_SERVER_HOST, GNS_SERVER_PORT)
         param = json.dumps({"name": name})
-        conn.request('GET', '/v2/projects')
-        r = conn.getresponse()
-        data = r.read()
-        jdata = json.loads(data)
-        for entry in jdata:
-            if entry['name'] == name:
-                conn.request('DELETE', f"/v2/projects/{entry['project_id']}")
-                conn.getresponse()
-        conn.request("POST", "/v2/projects", param)
-        r = conn.getresponse()
-        data = r.read()
-        jdata = json.loads(data)
-        self.pid = jdata['project_id']
-        conn.close()
+        try:
+            conn = http.client.HTTPConnection(GNS_SERVER_HOST, GNS_SERVER_PORT)
+            conn.request('GET', '/v2/projects')
+            r = conn.getresponse()
+        except http.client.HTTPException as e:
+            print(f"HTTP Exception: {e}")
+
+        except ConnectionError as e:
+            print(f"Connection Error: {e}")
+
+        except Exception as e:
+           print(f"Unexpected Error: {e}")
+
+        else:
+            #print("Status:", r.status)
+            #print("Reason:", r.reason)
+
+            data = r.read()
+            jdata = json.loads(data)
+            for entry in jdata:
+                if entry['name'] == name:
+                    conn.request('DELETE', f"/v2/projects/{entry['project_id']}")
+                    conn.getresponse()
+            conn.request("POST", "/v2/projects", param)
+            r = conn.getresponse()
+            data = r.read()
+            jdata = json.loads(data)
+            self.pid = jdata['project_id']
+
+        finally:
+            if 'conn' in locals() and conn:
+                conn.close()
+
         self.nodes = {}
         self.sleep_time = 20
 

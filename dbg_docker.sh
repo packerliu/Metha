@@ -1,3 +1,3 @@
-docker run --name metha-dbg -it -p 5678:5678 --network host \
+docker run --name metha-system -it -p 5678:5678 --network host \
 --mount type=bind,source="$(pwd)"/,target=/root/metha \
-metha:dbg
+metha:latest
