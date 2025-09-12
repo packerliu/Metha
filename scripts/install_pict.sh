@@ -3,6 +3,7 @@
 mkdir -p ./ext-systems
 cd ./ext-systems
 
-git clone "https://github.com/microsoft/pict.git"
+git config --global advice.detachedHead false
+git clone --depth 1 --branch release "https://github.com/microsoft/pict.git"
 cd pict
 make

@@ -41,17 +41,18 @@ pip install -r requirements.txt
 ## Running full Metha
 To generate new test cases, run
 ```
-python3 metha.py -p path run -s system
+python3 metha.py -p ./example-tests/tests-new/test0 run -s nv
 ```
-where ```path``` is the directory where the new test cases will be saved to after generation, and ```system``` is the system which is being tested, by default the supported systems are ```batfish```, ```nv```, ```cbgp```.
-The GNS3 server needs to be running, by default Metha expects a local GNS3 server. In addition, to test Batfish the Batfish server also needs to be running locally. This will generate a ```results``` directory on the same level as ```path```. In this directory, a summary of results will be saved as well as reports for any discrepancies found. In the folder passed by ```path```, Metha will generate a subdirectory for every test case which includes all configurations as well as the computed routing tables in ```csv``` format.
+where ```example-tests/tests-new/test0``` or ```[path]``` after ```-p``` is the directory where the new test cases will be saved to after generation, and ```nv``` or ```[system]``` after ```-s``` is the system which is being tested, by default the supported systems are ```batfish```, ```nv```, ```cbgp```.
+The GNS3 server needs to be running, by default Metha expects a local GNS3 server. We need to figure out how this could work when it is running inside a docker container.  
+In addition, to test Batfish the Batfish server also needs to be running locally. This will generate a ```results``` directory on the same level as ```[path]```. In this directory, a summary of results will be saved as well as reports for any discrepancies found. In the folder passed by ```[path]```, Metha will generate a subdirectory for every test case which includes all configurations as well as the computed routing tables in ```csv``` format.
 
 ## Running a single comparison: 
 Both the Batfish and GNS3 Servers must be running locally, then run
 ```
-python3 metha.py -p path single-test -s system
+python3 metha.py -p example-tests/tests-new/test0 single-test -s nv
 ```
-where ```path``` is a directory containing at least a folder ```config``` of configs used for the routers, plus possibly a topology file (can be generated as well). If C-BGP is used, additionally there must also be a file called ```cbgp_config.txt``` in the folder at ```path```.
+where ```[path]``` after ```-p``` is a directory containing at least a folder ```config``` of configs used for the routers, plus possibly a topology file (can be generated as well). If C-BGP is used, additionally there must also be a file called ```cbgp_config.txt``` in the folder at ```[path]```.
 
 ## Additional documentation
 
