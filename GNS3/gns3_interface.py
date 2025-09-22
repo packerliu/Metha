@@ -4,6 +4,7 @@ import logging
 import time
 import concurrent.futures
 import pandas as pd
+import base64
 
 from GNS3.router_types import *
 from GNS3 import send_request
@@ -44,22 +45,72 @@ class GNS3Project:
         Creates a new GNS3 project and initializes it
         :param name: Name of the project
         """
-        conn = http.client.HTTPConnection(GNS_SERVER_HOST, GNS_SERVER_PORT)
-        param = json.dumps({"name": name})
-        conn.request('GET', '/v2/projects')
-        r = conn.getresponse()
-        data = r.read()
-        jdata = json.loads(data)
-        for entry in jdata:
-            if entry['name'] == name:
-                conn.request('DELETE', f"/v2/projects/{entry['project_id']}")
-                conn.getresponse()
-        conn.request("POST", "/v2/projects", param)
-        r = conn.getresponse()
-        data = r.read()
-        jdata = json.loads(data)
-        self.pid = jdata['project_id']
-        conn.close()
+
+        # --- Authentication credentials ---
+        username = "admin"
+        password = "admin"
+        # --- Encode credentials for the Authorization header ---
+        # Combine the username and password with a colon.
+        auth_string = f"{username}:{password}"
+        # Base64 encode the string.
+        encoded_auth = base64.b64encode(auth_string.encode("utf-8")).decode("utf-8")
+        # Prepend "Basic " to the encoded string.
+        auth_header = f"Basic {encoded_auth}"
+
+        try:
+            conn = http.client.HTTPConnection(GNS_SERVER_HOST, GNS_SERVER_PORT)
+        
+            path = "/basic-auth/your_username/your_password"
+            headers = {
+            # Do not use authentication if comment out following line.
+                 "Authorization": auth_header
+            }
+
+            param = json.dumps({"name": name})
+            conn.request('GET', '/v2/projects', headers=headers)
+            r = conn.getresponse()
+        
+            if r.status == 401:
+                print("Error 401: Unauthorized access.")
+                # You can further process the response, e.g., print headers or read body
+                print(f"Reason: {r.reason}")
+                print("Headers:")
+                for header, value in r.getheaders():
+                    print(f"  {header}: {value}")
+                print("Response body:")
+                print(r.read().decode())
+            elif r.status == 200:
+                print("Request successful.")
+                # Process the successful response
+            else:
+                print(f"Unexpected status code: {response.status} {response.reason}")
+            
+        except http.client.HTTPException as e:
+            print(f"HTTP Error: {e}")
+        except ConnectionRefusedError:
+            print("Connection refused. The server might be down or unreachable.")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+        finally:
+        
+            data = r.read()
+            #print(data.decode())
+            jdata = json.loads(data)
+            for entry in jdata:
+                if entry['name'] == name:
+                    conn.request('DELETE', f"/v2/projects/{entry['project_id']}")
+                    conn.getresponse()
+            conn.request("POST", "/v2/projects", param)
+            r = conn.getresponse()
+            data = r.read()
+            jdata = json.loads(data)
+            self.pid = jdata['project_id']
+            print ("Find GNS3 PID: ", self.pid)
+
+            # Close the connection
+            if 'conn' in locals() and conn:
+                conn.close()        
+
         self.nodes = {}
         self.sleep_time = 20
 

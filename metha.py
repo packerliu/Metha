@@ -15,7 +15,6 @@ from Systems.NV import nv_interface
 from test_generator import CombinatorialTestGenerator, BoundedTestGenerator, RandomTestGenerator
 from utils import filter_optional
 
-
 """
 Read a system from a string
 """
@@ -363,4 +362,8 @@ def main():
 
 
 if __name__ == '__main__':
+    import debugpy
+    debugpy.listen(("0.0.0.0", 5678))
+    print("Waiting for client to attach...")
+    debugpy.wait_for_client()
     main()
