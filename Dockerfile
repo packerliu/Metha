@@ -20,8 +20,8 @@ RUN chmod +x ./scripts/install_nv.sh
 RUN ./scripts/install_nv.sh
 RUN chmod +x ./scripts/install_cbgp.sh
 RUN ./scripts/install_cbgp.sh
-RUN chmod +x ./scripts/install_batfish.sh
-RUN ./scripts/install_batfish.sh
+#RUN chmod +x ./scripts/install_batfish.sh
+#RUN ./scripts/install_batfish.sh
 
 # newer ntc-templates will have different folder structure
 RUN git clone --depth 1 --branch v1.6.0 https://github.com/networktocode/ntc-templates.git
@@ -42,5 +42,10 @@ RUN pip3 cache purge
 #   docker run -it --name metha -v.:/root/metha dabg/metha
 # then
 #   python3 metha.py -p example-tests/tests-new/test0 run -s batfish
+#
+# using debugpy for remote debugging:
+#   docker run -it --name metha -v.:/root/metha -p 5678:5678 dabg/metha
+#   python3 -m debugpy --listen localhost:5678 --wait-for-client metha.py -p example-tests/tests-new/test0 run -s batfish
+#
 #
 # now we need to hook up GNS somehow to let this python3 sees the GNS3 pid outside of the container. 
