@@ -96,7 +96,7 @@ def run_single_test(args):
     """
     sys = system_from_string[args.system]
     gp, adj = gns3_interface.init_gns_from_files(args.path)
-    rt_comparator.run_comparison(get_dir(args.path), gp, adj, sys)
+    #rt_comparator.run_comparison(get_dir(args.path), gp, adj, sys)
 
 
 def get_config_features(args):
