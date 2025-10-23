@@ -44,6 +44,6 @@ RUN pip3 cache purge
 #   python3 metha.py -p example-tests/tests-new/test0 run -s batfish
 #
 # using debugpy for remote debugging:
-#   docker run -it --rm --name metha --network=host -v.:/root dabg/metha:latest /usr/bin/python3 metha.py -p example-tests/tests-new/test0/ single-test -s nv
+#   docker run -it --rm --name metha --network=host -v.:/root dabg/metha:20250921 /usr/bin/python3 metha.py -p example-tests/tests-new/test0/ single-test -s nv
 #
 # now we need to hook up GNS somehow to let this python3 sees the GNS3 pid outside of the container. 
