@@ -47,8 +47,8 @@ class GNS3Project:
         """
 
         # --- Authentication credentials ---
-        username = "admin"
-        password = "admin"
+        username = "tester"
+        password = "eecs499235"
         # --- Encode credentials for the Authorization header ---
         # Combine the username and password with a colon.
         auth_string = f"{username}:{password}"
@@ -63,7 +63,7 @@ class GNS3Project:
             path = "/basic-auth/your_username/your_password"
             headers = {
             # Do not use authentication if comment out following line.
-                 "Authorization": auth_header
+                #  "Authorization": auth_header
             }
 
             param = json.dumps({"name": name})
@@ -83,7 +83,7 @@ class GNS3Project:
                 print("Request successful.")
                 # Process the successful response
             else:
-                print(f"Unexpected status code: {response.status} {response.reason}")
+                print(f"Unexpected status code: {r.status} {r.reason}")
             
         except http.client.HTTPException as e:
             print(f"HTTP Error: {e}")
@@ -333,7 +333,9 @@ def init_gns_from_files(path):
     """
     generate_topology(path)
     gp = setup_gns_from_topology(f'{path}topology.json')
+    #this is the setup stage
     adj = build_adjacency_info(f'{path}topology.json')
+    
     gp.start_nodes()
 
     return gp, adj
