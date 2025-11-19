@@ -96,7 +96,7 @@ def run_single_test(args):
     """
     sys = system_from_string[args.system]
     gp, adj = gns3_interface.init_gns_from_files(args.path)
-    #rt_comparator.run_comparison(get_dir(args.path), gp, adj, sys)
+    # rt_comparator.run_comparison(get_dir(args.path), gp, adj, sys)
 
 
 def get_config_features(args):
@@ -363,7 +363,8 @@ def main():
 
 if __name__ == '__main__':
     import debugpy
-    debugpy.listen(("0.0.0.0", 5678))
-    print("Waiting for client to attach...")
-    debugpy.wait_for_client()
+    # Move debugpy usage into the command line for this code. Run it as "source run_debugpy.sh"
+    # debugpy.listen(("0.0.0.0", 5678))
+    #print("Waiting for client to attach...")
+    #debugpy.wait_for_client()
     main()
